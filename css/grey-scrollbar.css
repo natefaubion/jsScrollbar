@@ -1,0 +1,277 @@
+/**
+ * Many of these selectors could be combined to save space, but they are all
+ * expanded here for clarity. Always use a CSS compressor, because the CSS for
+ * complex scrollbars can be quite verbose.
+ *
+ * HTML structure utilized in this scrollbar:
+ * <div class="jssb-y">
+ *     <div class="jssb-up"></div>
+ *     <div class="jssb-y-track">
+ *         <div class="jssb-y-track-mid"></div>
+ *         <div class="jssb-y-track-end"></div>
+ *         <div class="jssb-y-thumb">
+ *             <div class="jssb-y-thumb-mid"></div>
+ *             <div class="jssb-y-thumb-end"></div>
+ *         </div>
+ *     </div>
+ *     <div class="jssb-down"></div>
+ * </div>
+ */
+
+/* Default state without jsScrollbars enabled */
+/* Older browsers and browsers without javascript get this */
+.jssb-content { 
+	overflow: auto; 
+	
+	/* Fill height of container */
+	height: 100%;
+}
+
+/* Enable jsScrollbars in capable browsers */
+.jssb-applied > .jssb-content { 
+	overflow: hidden;
+	
+	/* We'll use positioning to size the content, so reset height to auto */
+	height: auto;
+	
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	bottom: 5px;
+	left: 5px;
+}
+
+/* Shrink the content a little to make room for the scrollbars */
+.jssb-scrollx .jssb-content { bottom: 20px; }
+.jssb-scrolly .jssb-content { right: 20px; }
+
+/* Hide scrollbars by default */
+/* You could also set up a disabled state here, but that would just add even more CSS */
+.jssb-x, .jssb-y { display: none; }
+
+/* Show scrollbars when needed */
+.jssb-scrollx .jssb-x,
+.jssb-scrolly .jssb-y { display: block; }
+
+/**
+ * HORIZONTAL SCROLLBAR
+ */
+
+/* Set horizontal scrollbar position and size in the container */
+.jssb-x {
+	position: absolute;
+	
+	/* 5 pixels from the bottom and each side */
+	bottom: 5px;
+	left: 5px;
+	right: 5px;
+	
+	height: 10px;
+}
+
+/* Set horizontal scrollbar position when vertical scrollbar is present */
+/* It needs to shorten up some to make room for the vertical scrollbar */
+.jssb-scrolly .jssb-x { right: 15px; }
+	
+	/* Set default positioning and sprite image for scrollbar components */
+	.jssb-x-left, .jssb-x-right, .jssb-x-thumb, .jssb-x-thumb-mid,
+	.jssb-x-thumb-end, .jssb-x-track, .jssb-x-track-mid, .jssb-x-track-end {
+		background: url(../images/grey-scrollbar-x.png) no-repeat 0 0;
+		position: absolute;
+		
+		/* Fill up all available height in the scrollbar. In this case, it will be 10px */
+		/* You could also set this with a height attribute */
+		top: 0;
+		bottom: 0;
+	}
+	
+	/* Set dimension of left and right scrolling buttons */
+	.jssb-x-left,
+	.jssb-x-right { width: 10px; }
+	
+	/* Set position of horizontal buttons*/
+	.jssb-x-left { left: 0; }
+	.jssb-x-right { right: 0; }
+	
+	/* Change sprite position for the clicked state on these buttons */
+	/* In this theme, the two buttons look exactly the same, so they use the
+	   same background-position */
+	.jssb-x-left-click,
+	.jssb-x-right-click { background-position: 0 -10px; }
+	
+	/* Set position of the horizontal scrollbar track */
+	.jssb-x-track {
+		/* This leaves a 5px gutter between the track and buttons */
+		left: 15px;
+		right: 15px;
+		
+		/* This is the left cap of the track */
+		background-position: 0 -120px;
+	}
+
+	/* Tiled mid section */
+	.jssb-x-track .jssb-x-track-mid {
+		/* Fill the space between the end caps */
+		left: 5px;
+		right: 5px;
+		
+		background-position: 0 -100px;
+		background-repeat: repeat-x;
+	}
+	
+	/* The right end cap of the horizontal track */
+	.jssb-x-track .jssb-x-track-end {
+		right: 0;
+		width: 5px;
+		
+		background-position: right -80px;
+	}
+	
+	/* Set the sprite position of the track click state */
+	.jssb-x-track-click { background-position: 0 -130px; }
+	.jssb-x-track-click .jssb-x-track-mid { background-position: 0 -110px; }
+	.jssb-x-track-click .jssb-x-track-end { background-position: right -90px; }
+	
+	/* Set the minimum/default horizontal thumb size */
+	.jssb-x-thumb {
+		/* The thumb won't shrink smaller than this */
+		width: 20px;
+		
+		/* Left end cap */
+		background-position: 0 -60px;
+	}
+	
+	/* Tiled mid section of the thumb */
+	.jssb-x-thumb .jssb-x-thumb-mid {
+		/* Fill the space between the end caps */
+		left: 5px;
+		right: 5px;
+		
+		background-position: 0 -40px;
+		background-repeat: repeat-x;
+	}
+	
+	/* The right end cap of the horizontal thumb */
+	.jssb-x-thumb .jssb-x-thumb-end {
+		right: 0;
+		width: 5px;
+		
+		background-position: right -20px;
+	}
+	
+	/* Set the sprite position of the thumb click state */
+	.jssb-x-thumb-click { background-position: 0 -70px; }
+	.jssb-x-thumb-click .jssb-x-thumb-mid { background-position: 0 -50px; }
+	.jssb-x-thumb-click .jssb-x-thumb-end { background-position: right -30px; }
+	
+/**
+ * VERTICAL SCROLLBAR
+ */
+
+/* Set vertical scrollbar position and size in the container */
+.jssb-y {
+	position: absolute;
+	
+	/* 5 pixels from the right, top and bottom */
+	top: 5px;
+	right: 5px;
+	bottom: 5px;
+	
+	width: 10px;
+}
+
+/* Set vertical scrollbar position when horizontal scrollbar is present */
+/* It needs to shorten up some to make room for the horizontal scrollbar */
+.jssb-scrollx .jssb-y { bottom: 15px; }
+	
+	/* Set default positioning and sprite image for scrollbar components */
+	.jssb-y-up, .jssb-y-down, .jssb-y-thumb, .jssb-y-thumb-mid,
+	.jssb-y-thumb-end, .jssb-y-track, .jssb-y-track-mid, .jssb-y-track-end {
+		background: url(../images/grey-scrollbar-y.png) no-repeat 0 0;
+		position: absolute;
+		
+		/* Fill up all available width in the scrollbar. In this case, it will be 10px */
+		/* You could also set this with a width attribute */
+		left: 0;
+		right: 0;
+	}
+	
+	/* Set dimension of up and down scrolling buttons */
+	.jssb-y-up,
+	.jssb-y-down { height: 10px; }
+	
+	/* Set position of vertical buttons*/
+	.jssb-y-up { top: 0; }
+	.jssb-y-down {bottom: 0; }
+	
+	/* Change sprite position for the clicked state on these buttons */
+	/* In this theme, the two buttons look exactly the same, so they use the
+	   same background-position */
+	.jssb-y-up-click,
+	.jssb-y-down-click { background-position: -10px 0; }
+	
+	/* Set position of the vertical scrollbar track */
+	.jssb-y-track {
+		/* This leaves a 5px gutter between the track and buttons */
+		top: 15px;
+		bottom: 15px;
+		
+		/* This is the top cap of the track */
+		background-position: -80px 0;
+	}
+
+	/* Tiled mid section */
+	.jssb-y-track .jssb-y-track-mid {
+		/* Fill the space between the end caps */
+		top: 5px;
+		bottom: 5px;
+		
+		background-position: -100px 0;
+		background-repeat: repeat-y;
+	}
+	
+	/* The bottom end cap of the vertical track */
+	.jssb-y-track .jssb-y-track-end {
+		bottom: 0;
+		height: 5px;
+		
+		background-position: -120px bottom;
+	}
+	
+	/* Set the sprite position of the track click state */
+	.jssb-y-track-click { background-position: -90px 0; }
+	.jssb-y-track-click .jssb-y-track-mid { background-position: -110px 0; }
+	.jssb-y-track-click .jssb-y-track-end { background-position: -130px bottom; }
+	
+	/* Set the minimum/default vertical thumb size */
+	.jssb-y-thumb {
+		/* The thumb won't shrink smaller than this */
+		height: 20px;
+		
+		/* Top end cap */
+		background-position: -20px 0;
+	}
+	
+	/* Tiled mid section of the thumb */
+	.jssb-y-thumb .jssb-y-thumb-mid {
+		/* Fill the space between the end caps */
+		top: 5px;
+		bottom: 5px;
+		
+		background-position: -40px 0;
+		background-repeat: repeat-y;
+	}
+	
+	/* The right end cap of the vertical thumb */
+	.jssb-y-thumb .jssb-y-thumb-end {
+		bottom: 0;
+		height: 5px;
+		
+		background-position: -60px bottom;
+	}
+	
+	/* Set the sprite position of the thumb click state */
+	.jssb-y-thumb-click { background-position: -30px 0; }
+	.jssb-y-thumb-click .jssb-y-thumb-mid { background-position: -50px 0; }
+	.jssb-y-thumb-click .jssb-y-thumb-end { background-position: -70px bottom; }
+

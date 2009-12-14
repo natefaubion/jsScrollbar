@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>jsScrollbar</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+</head>
+<body id="main">
+
+<div id="bar">
+	<div id="titles">
+		<h1>jsScrollbar/</h1>
+	</div>
+	<ul id="buttons">
+		<li><a href="#Initialization">Initialization</a></li>
+		<li><a href="#Styling">Styling</a></li>
+		<li><a href="#Preferences">Preferences</a></li>
+		<li><a href="#Compatibility">Compatibility</a></li>
+		<li><a href="#API">API</a></li>
+		<li><a href="#Examples">Examples</a></li>
+	</ul>
+</div>
+
+<div class="intro">
+<h2>What is jsScrollbar?</h2>
+<p><strong>jsScrollbar</strong> is a lightweight script <em>(4K minified and
+gzipped)</em> that enables you to override default system scrollbars on your
+website with beautiful, progressively-enhanced javascript scrollbars. It has no
+external dependencies, and can be included on any website, regardless of what
+other library you might be using. <code>jsScrollbars</code> are styled
+completely with CSS and can be customized to your heart's content.</p>
+</div>
+
+
+
+
+
+
+<h2 id="Initialization">Initialization</h2>
+<p>Initializing a new <code>jsScrollbar</code> is a breeze. Once your content
+has loaded, just pass your container(s) to a <code>jsScrollbar()</code> call in
+one of three ways: as a string of comma-separated IDs, an
+<code>HTMLElement</code>, or an array of <code>HTMLElement</code>s.</p>
+
+<pre>
+// Comma separated IDs, pound sign optional
+jsScrollbar('elementID1, #elementsID2')
+
+// Element reference
+var el = document.getElementById('elementID');
+jsScrollbar(el);
+
+// Array of elements through a jQuery call
+jsScrollbar( $('.container') );
+</pre>
+
+<p><code>jsScrollbar()</code> also takes a second optional argument for preferences,
+but we'll get to that in a later section.</p>
+
+
+
+
+
+<h2 id="Styling">Styling</h2>
+<p>What good is a scrollbar if you can't see it?</p>
+
+
+
+
+
+
+<h2 id="Preferences">Preferences</h2>
+<p>Lorem ipsum dolar sit amet.</p>
+
+
+
+
+
+<h2 id="Compatibility">Compatibility</h2>
+<p>Lorem ipsum dolar sit amet.</p>
+
+
+
+
+
+<h2 id="API">API</h2>
+<p>Lorem ipsum dolar sit amet.</p>
+
+
+
+
+
+<h2 id="Examples">Examples</h2>
+<p>Lorem ipsum dolar sit amet.</p>
+
+
+
+
+
+
+<script>
+
+var anchors = document.getElementsByTagName('a'), i = anchors.length, a, id;
+while (i--) {
+	a  = anchors[i];
+	id = a.href.split('#')[1] || null;
+	if (id) {
+		a.onclick = function () {
+			var y = document.getElementById(this.href.split('#')[1]).offsetTop - 82;
+			window.scroll(0, y);
+			return false;
+		}
+	}
+}
+
+</script>
+</body>
+</html>

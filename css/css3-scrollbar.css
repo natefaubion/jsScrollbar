@@ -1,0 +1,198 @@
+/**
+ * Many of these selectors could be combined to save space, but they are all
+ * expanded here for clarity. Always use a CSS compressor, because the CSS for
+ * complex scrollbars can be quite verbose.
+ * 
+ * HTML structure utilized in this scrollbar:
+ * <div class="jssb-y">
+ *     <div class="jssb-up"></div>
+ *     <div class="jssb-y-track">
+ *         <div class="jssb-y-thumb">
+ *         </div>
+ *     </div>
+ *     <div class="jssb-down"></div>
+ * </div>
+ */
+
+/* Default state without jsScrollbars enabled */
+/* Older browsers and browsers without javascript get this */
+.jssb-content { 
+	overflow: auto; 
+	
+	/* Fill height of container */
+	height: 100%;
+}
+
+/* Enable jsScrollbars in capable browsers */
+.jssb-applied > .jssb-content { 
+	overflow: hidden;
+	
+	/* We'll use positioning to size the content, so reset height to auto */
+	height: auto;
+	
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	bottom: 5px;
+	left: 5px;
+}
+
+/* Shrink the content a little to make room for the scrollbars */
+.jssb-scrollx .jssb-content { bottom: 22px; }
+.jssb-scrolly .jssb-content { right: 22px; }
+
+/* Hide scrollbars by default */
+/* You could also set up a disabled state here, but that would just add even more CSS */
+.jssb-x, .jssb-y { display: none; }
+
+/* Show scrollbars when needed */
+.jssb-scrollx .jssb-x,
+.jssb-scrolly .jssb-y { display: block; }
+
+/* CSS3 Rounded corners and css transitions */
+.jssb-x, .jssb-x-left, .jssb-x-right, .jssb-x-thumb, .jssb-x-track,
+.jssb-y, .jssb-y-up, .jssb-y-down, .jssb-y-thumb, .jssb-y-track {
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	-webkit-transition: background-color .1s linear;
+}
+
+/**
+ * HORIZONTAL SCROLLBAR
+ */
+
+/* Set horizontal scrollbar position and size in the container */
+.jssb-x {
+	position: absolute;
+
+	/* 5 pixels from the bottom and each side */
+	bottom: 5px;
+	left: 5px;
+	right: 5px;
+
+	height: 15px;
+	background: #CCC;
+}
+
+/* Set horizontal scrollbar position when vertical scrollbar is present */
+/* It needs to shorten up some to make room for the vertical scrollbar */
+.jssb-scrolly .jssb-x { right: 20px; }
+
+	/* Set default positioning and sprite image for scrollbar components */
+	.jssb-x-left, .jssb-x-right, .jssb-x-thumb, .jssb-x-track {
+		background: #666 url(../images/css3-scrollbar-x.png) no-repeat 0 0;
+		position: absolute;
+
+		/* Fill up all available height in the scrollbar. In this case, it will be 15px */
+		/* You could also set this with a height attribute */
+		top: 0;
+		bottom: 0;
+	}
+
+	/* Set dimension of left and right scrolling buttons */
+	.jssb-x-left,
+	.jssb-x-right { width: 15px; }
+	
+	/* Set position of horizontal buttons and their background position */
+	.jssb-x-left { 
+		left: 0;
+		background-position: center bottom;
+	}
+	.jssb-x-right { right: 0; }
+	
+	/* Set position of the horizontal scrollbar track */
+	.jssb-x-track {
+		left: 16px;
+		right: 16px;
+		background: #CCC;
+	}
+	
+	/* Set the minimum/default horizontal thumb size */
+	.jssb-x-thumb {
+		/* The thumb won't shrink smaller than this */
+		width: 30px;
+		
+		/* Middle grabber lines */
+		background-position: center center;
+	}
+	
+/**
+ * VERTICAL SCROLLBAR
+ */
+
+/* Set vertical scrollbar position and size in the container */
+.jssb-y {
+	position: absolute;
+
+	/* 5 pixels from the top right and bottom sides */
+	top: 5px;
+	right: 5px;
+	bottom: 5px;
+
+	width: 15px;
+	background: #CCC;
+}
+	
+/* Set vertical scrollbar position when horizontal scrollbar is present */
+/* It needs to shorten up some to make room for the horizontal scrollbar */
+.jssb-scrollx .jssb-y { bottom: 20px; }
+
+	/* Set default positioning and sprite image for scrollbar components */
+	.jssb-y-up, .jssb-y-down, .jssb-y-thumb, .jssb-y-track {
+		background: #666 url(../images/css3-scrollbar-y.png) no-repeat 0 0;
+		position: absolute;
+
+		/* Fill up all available width in the scrollbar. In this case, it will be 15px */
+		/* You could also set this with a width attribute */
+		left: 0;
+		right: 0;
+	}
+
+	/* Set dimension of up and down scrolling buttons */
+	.jssb-y-up,
+	.jssb-y-down { height: 15px; }
+
+	/* Set position of vertical buttons and their background position */
+	.jssb-y-up { top: 0; }
+	.jssb-y-down { 
+		bottom: 0;
+		background-position: right center;
+	}
+
+	/* Set position of the vertical scrollbar track */
+	.jssb-y-track {
+		top: 16px;
+		bottom: 16px;
+		background: #CCC;
+	}
+
+	/* Set the minimum/default vertical thumb size */
+	.jssb-y-thumb {
+		/* The thumb won't shrink smaller than this */
+		height: 30px;
+
+		/* Middle grabber lines */
+		background-position: center center;
+	}
+	
+/* Hover background-color */
+.jssb-x-left:hover, .jssb-x-right:hover, .jssb-x-thumb:hover, 
+.jssb-y-up:hover, .jssb-y-down:hover, .jssb-y-thumb:hover {
+	background-color: #555;
+}
+
+/* Clicked background-color */
+/* You have to include click:hover also, other wise you'll get the plain hover state */
+.jssb-x-left-click, .jssb-x-right-click, .jssb-x-thumb-click,
+.jssb-x-left-click:hover, .jssb-x-right-click:hover, .jssb-x-thumb-click:hover, 
+.jssb-y-up-click, .jssb-y-down-click, .jssb-y-thumb-click,
+.jssb-y-up-click:hover, .jssb-y-down-click:hover, .jssb-y-thumb-click:hover {
+	background-color: #000;
+}
+
+/* Clicked background-color for the track */
+.jssb-x-track-click, .jssb-y-track-click {
+	background-color: #BBB;
+}

@@ -1,0 +1,149 @@
+/**
+ * Many of these selectors could be combined to save space, but they are all
+ * expanded here for clarity. Always use a CSS compressor, because the CSS for
+ * complex scrollbars can be quite verbose.
+ *
+ * HTML structure utilized in this scrollbar:
+ * <div class="jssb-y">
+ *     <div class="jssb-up"></div>
+ *     <div class="jssb-y-track">
+ *         <div class="jssb-y-track-mid"></div>
+ *         <div class="jssb-y-track-end"></div>
+ *         <div class="jssb-y-thumb">
+ *             <div class="jssb-y-thumb-mid"></div>
+ *             <div class="jssb-y-thumb-end"></div>
+ *         </div>
+ *     </div>
+ *     <div class="jssb-down"></div>
+ * </div>
+ */
+
+/* Default state without jsScrollbars enabled */
+/* Older browsers and browsers without javascript get this */
+.jssb-content { 
+	overflow: auto; 
+
+	/* Fill height of container */
+	height: 100%;
+}
+
+/* Enable jsScrollbars in capable browsers */
+.jssb-applied > .jssb-content { 
+	overflow: hidden;
+
+	/* We'll use positioning to size the content, so reset height to auto */
+	height: auto;
+
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	bottom: 6px;
+	left: 6px;
+}
+
+/* Shrink the content a little to make room for the scrollbar */
+.jssb-scrolly .jssb-content { right: 24px; }
+
+/* Hide scrollbar by default */
+.jssb-y { display: none; }
+
+/* Show scrollbar when needed */
+.jssb-scrolly .jssb-y { display: block; }
+
+/* Set vertical scrollbar position and size in the container */
+.jssb-y {
+	position: absolute;
+	
+	/* 2 pixels from the right, top and bottom edges of the container */
+	top: 2px;
+	right: 2px;
+	bottom: 2px;
+	
+	width: 12px;
+}
+
+	/* Set default positioning and sprite image for scrollbar components */
+	.jssb-y-up, .jssb-y-down, .jssb-y-thumb, .jssb-y-thumb-mid,
+	.jssb-y-thumb-end, .jssb-y-track, .jssb-y-track-mid, .jssb-y-track-end {
+		background: url(../images/glossy-scrollbar-y.png) no-repeat 0 0;
+		position: absolute;
+		
+		/* Fill up all available width in the scrollbar. In this case, it will be 10px */
+		/* You could also set this with a width attribute */
+		left: 0;
+		right: 0;
+	}
+	
+	/* Set dimension of up and down scrolling buttons */
+	/* Using z-index cause track will overlap the buttons */
+	.jssb-y-up, 
+	.jssb-y-down { height: 20px; z-index: 1; }
+	
+	/* Set position and background of down button */
+	/* Up button is covered by the default state above */
+	.jssb-y-down { bottom: 0; background-position: -15px 0; }
+	
+	/* Set position of the vertical scrollbar track */
+	.jssb-y-track {
+		/* This will overlap the buttons */
+		top: 12px;
+		bottom: 12px;
+		z-index: 2;
+		
+		/* This is the top cap of the track */
+		background-position: -30px 0;
+	}
+	
+	/* Tiled mid section */
+	.jssb-y-track .jssb-y-track-mid {
+		/* Fill the space between the end caps */
+		top: 10px;
+		bottom: 10px;
+		
+		background-position: -45px 0;
+		background-repeat: repeat-y;
+	}
+	
+	/* The bottom end cap of the vertical track */
+	.jssb-y-track .jssb-y-track-end {
+		bottom: 0;
+		height: 10px;
+		
+		background-position: -60px bottom;
+	}
+	
+	/* Set the minimum/default vertical thumb size */
+	.jssb-y-thumb {
+		/* The thumb won't shrink smaller than this */
+		height: 25px;
+		
+		/* Top end cap */
+		background-position: -75px 0;
+	}
+	
+	/* Tiled mid section of the thumb */
+	.jssb-y-thumb .jssb-y-thumb-mid {
+		/* Fill the space between the end caps */
+		top: 5px;
+		bottom: 5px;
+		
+		background-position: -90px 0;
+		background-repeat: repeat-y;
+	}
+	
+	/* The right end cap of the vertical thumb */
+	.jssb-y-thumb .jssb-y-thumb-end {
+		bottom: 0;
+		height: 5px;
+		
+		background-position: -105px bottom;
+	}
+	
+	/* Sprite for click state */
+	/* Much less code, but causes a flash when loading the new image */
+	/* Could be mitigated by preloading image somehow */
+	.jssb-y-up-click, .jssb-y-down-click, 
+	.jssb-y-thumb-click, .jssb-y-thumb-click .jssb-y-thumb-mid, .jssb-y-thumb-click .jssb-y-thumb-end, 
+	.jssb-y-track-click, .jssb-y-track-click .jssb-y-track-mid, .jssb-y-track-click .jssb-y-track-end {
+		background-image: url(../images/glossy-scrollbar-y-click.png);
+	}

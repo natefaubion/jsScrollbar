@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jsScrollbar/Fullscreen</title>
+<script type="text/javascript" src="../src/jsScrollbar.js"></script>
+<script type="text/javascript">
+
+	// Called at the end of the document
+	function apply () {
+		scrollbar = jsScrollbar('#Container');
+		
+		window.onresize = function () {
+			scrollbar.recalc();
+			forceOperaRedraw(scrollbar);
+		};
+		
+		forceOperaRedraw(scrollbar);
+	};
+
+</script>
+<link rel="stylesheet" type="text/css" href="../css/styles.css" />
+<link rel="stylesheet" type="text/css" href="../css/grey-scrollbar.css" />
+<style type="text/css">
+	html, body {
+		overflow: hidden;
+	}
+	
+	#Container {
+		position: absolute;
+		top: 52px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: #EEE;
+	}
+	
+	.jssb-content {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		bottom: 10px;
+		right: 5px;
+	}
+	
+	.jssb-scrolly .jssb-content {
+		right: 20px;
+	}
+	
+	.jssb-scrollx .jssb-content {
+		bottom: 20px;
+	}
+	
+	p {
+		margin: 0 0 10px 0;
+	}
+</style>
+</head>
+<body>
+	
+<div id="bar">
+	<div id="titles">
+		<h1><a href="../index.html">jsScrollbar/</a></h1>
+		<h2>Fullscreen</h2>
+	</div>
+	<ul id="buttons">
+		<li><a href="#" id="disable">Disable jsScrollbars</a></li>
+	</ul>
+</div>
+
+<div id="Container">
+	<div class="jssb-content">
+	
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu quam ligula, ut dapibus enim. Suspendisse potenti. Mauris sit amet nisl id nulla convallis auctor. Duis id eros orci, non hendrerit mauris. Ut ante ligula, hendrerit non convallis nec, adipiscing eu elit. Proin nec dolor risus, sed accumsan velit. Morbi egestas venenatis dui non auctor. Nunc ullamcorper, dui vel venenatis pharetra, nisi sem iaculis velit, vitae ullamcorper sem nisl sit amet nulla. Aliquam molestie lobortis varius. Sed molestie interdum lorem, commodo facilisis turpis interdum at. Maecenas eget neque est, nec lacinia est. Integer id tortor auctor tortor venenatis molestie eget id lectus. Proin ac tellus ut nulla eleifend tincidunt. Aliquam nibh mi, tempor eget aliquam eu, pellentesque tincidunt nisl. Sed in turpis neque, non tempus libero. Donec suscipit, ipsum eu gravida convallis, tortor nulla facilisis urna, ut rhoncus est tortor at eros. Praesent lobortis pretium ligula, eget vulputate quam ultricies ac.</p>
+		<p>Pellentesque tincidunt ullamcorper dolor eu commodo. Pellentesque dapibus erat dictum lorem tempor a rhoncus augue fermentum. Maecenas consectetur aliquam egestas. Donec a odio velit. Aenean sagittis egestas mauris nec pulvinar. Maecenas sodales condimentum suscipit. Praesent diam metus, cursus sed fermentum tempor, ultricies vitae justo. Morbi eleifend eros quis metus rutrum imperdiet. Curabitur a quam sed turpis eleifend interdum. Vestibulum id imperdiet libero. Ut faucibus diam nec dui hendrerit at fermentum felis eleifend.</p>
+		<p>Suspendisse vitae tellus a lectus tempus aliquet. Curabitur suscipit fringilla pharetra. Donec et nisl orci. Vivamus a tortor elit. Sed ultricies pellentesque diam. Donec facilisis commodo leo, sit amet volutpat nisl ultricies sit amet. Proin ut erat at tortor gravida tristique nec sit amet nisi. Nunc tortor lorem, dignissim quis convallis in, egestas et velit. Nunc faucibus lectus quis libero venenatis sed malesuada urna lobortis. Suspendisse euismod ipsum non turpis aliquam in viverra dolor viverra. Fusce eu iaculis diam. Nullam egestas consectetur purus, eu dictum nisi faucibus gravida. Cras metus lacus, elementum ac pulvinar eget, laoreet ut ligula. Donec est arcu, faucibus ut porttitor sit amet, tincidunt ac dolor. In non lectus nec ipsum congue rutrum luctus vel ante. Donec malesuada pretium massa in condimentum. Pellentesque vestibulum erat tincidunt neque porttitor vel sodales enim lacinia. Nam semper ultricies rutrum. Vivamus eu lectus arcu. Nunc quis leo velit.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu quam ligula, ut dapibus enim. Suspendisse potenti. Mauris sit amet nisl id nulla convallis auctor. Duis id eros orci, non hendrerit mauris. Ut ante ligula, hendrerit non convallis nec, adipiscing eu elit. Proin nec dolor risus, sed accumsan velit. Morbi egestas venenatis dui non auctor. Nunc ullamcorper, dui vel venenatis pharetra, nisi sem iaculis velit, vitae ullamcorper sem nisl sit amet nulla. Aliquam molestie lobortis varius. Sed molestie interdum lorem, commodo facilisis turpis interdum at. Maecenas eget neque est, nec lacinia est. Integer id tortor auctor tortor venenatis molestie eget id lectus. Proin ac tellus ut nulla eleifend tincidunt. Aliquam nibh mi, tempor eget aliquam eu, pellentesque tincidunt nisl. Sed in turpis neque, non tempus libero. Donec suscipit, ipsum eu gravida convallis, tortor nulla facilisis urna, ut rhoncus est tortor at eros. Praesent lobortis pretium ligula, eget vulputate quam ultricies ac.</p>
+		<p style="width: 1000px; height: 50px; background: #444; color: white; border-right: 1px solid red">Extra Wide.</p>
+		<p>Pellentesque tincidunt ullamcorper dolor eu commodo. Pellentesque dapibus erat dictum lorem tempor a rhoncus augue fermentum. Maecenas consectetur aliquam egestas. Donec a odio velit. Aenean sagittis egestas mauris nec pulvinar. Maecenas sodales condimentum suscipit. Praesent diam metus, cursus sed fermentum tempor, ultricies vitae justo. Morbi eleifend eros quis metus rutrum imperdiet. Curabitur a quam sed turpis eleifend interdum. Vestibulum id imperdiet libero. Ut faucibus diam nec dui hendrerit at fermentum felis eleifend.</p>
+		<p>Suspendisse vitae tellus a lectus tempus aliquet. Curabitur suscipit fringilla pharetra. Donec et nisl orci. Vivamus a tortor elit. Sed ultricies pellentesque diam. Donec facilisis commodo leo, sit amet volutpat nisl ultricies sit amet. Proin ut erat at tortor gravida tristique nec sit amet nisi. Nunc tortor lorem, dignissim quis convallis in, egestas et velit. Nunc faucibus lectus quis libero venenatis sed malesuada urna lobortis. Suspendisse euismod ipsum non turpis aliquam in viverra dolor viverra. Fusce eu iaculis diam. Nullam egestas consectetur purus, eu dictum nisi faucibus gravida. Cras metus lacus, elementum ac pulvinar eget, laoreet ut ligula. Donec est arcu, faucibus ut porttitor sit amet, tincidunt ac dolor. In non lectus nec ipsum congue rutrum luctus vel ante. Donec malesuada pretium massa in condimentum. Pellentesque vestibulum erat tincidunt neque porttitor vel sodales enim lacinia. Nam semper ultricies rutrum. Vivamus eu lectus arcu. Nunc quis leo velit.</p>
+		<p>Pellentesque tincidunt ullamcorper dolor eu commodo. Pellentesque dapibus erat dictum lorem tempor a rhoncus augue fermentum. Maecenas consectetur aliquam egestas. Donec a odio velit. Aenean sagittis egestas mauris nec pulvinar. Maecenas sodales condimentum suscipit. Praesent diam metus, cursus sed fermentum tempor, ultricies vitae justo. Morbi eleifend eros quis metus rutrum imperdiet. Curabitur a quam sed turpis eleifend interdum. Vestibulum id imperdiet libero. Ut faucibus diam nec dui hendrerit at fermentum felis eleifend.</p>
+		<p>
+			<input type="text" value="Input test" /> <br />
+			<select>
+				<option>hey</option>
+				<option>ho</option>
+				<option>Here we go</option>
+			</select>
+		</p>
+		<p>Suspendisse vitae tellus a lectus tempus aliquet. Curabitur suscipit fringilla pharetra. Donec et nisl orci. Vivamus a tortor elit. Sed ultricies pellentesque diam. Donec facilisis commodo leo, sit amet volutpat nisl ultricies sit amet. Proin ut erat at tortor gravida tristique nec sit amet nisi. Nunc tortor lorem, dignissim quis convallis in, egestas et velit. Nunc faucibus lectus quis libero venenatis sed malesuada urna lobortis. Suspendisse euismod ipsum non turpis aliquam in viverra dolor viverra. Fusce eu iaculis diam. Nullam egestas consectetur purus, eu dictum nisi faucibus gravida. Cras metus lacus, elementum ac pulvinar eget, laoreet ut ligula. Donec est arcu, faucibus ut porttitor sit amet, tincidunt ac dolor. In non lectus nec ipsum congue rutrum luctus vel ante. Donec malesuada pretium massa in condimentum. Pellentesque vestibulum erat tincidunt neque porttitor vel sodales enim lacinia. Nam semper ultricies rutrum. Vivamus eu lectus arcu. Nunc quis leo velit.</p>
+
+	</div>
+</div>
+
+<script type="text/javascript" src="../src/examples.js"></script>
+
+</body>
+</html>

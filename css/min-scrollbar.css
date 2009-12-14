@@ -1,0 +1,193 @@
+/**
+ * Many of these selectors could be combined to save space, but they are all
+ * expanded here for clarity. Always use a CSS compressor, because the CSS for
+ * complex scrollbars can be quite verbose.
+ *
+ * HTML structure utilized in this scrollbar:
+ * <div class="jssb-y">
+ *     <div class="jssb-y-track">
+ *         <div class="jssb-y-track-mid"></div>
+ *         <div class="jssb-y-track-end"></div>
+ *         <div class="jssb-y-thumb"></div>
+ *     </div>
+ * </div>
+ */
+
+/* Default state without jsScrollbars enabled */
+/* Older browsers and browsers without javascript get this */
+.jssb-content { 
+	overflow: auto; 
+
+	/* Fill height of container */
+	height: 100%;
+}
+
+/* Enable jsScrollbars in capable browsers */
+.jssb-applied > .jssb-content { 
+	overflow: hidden;
+
+	/* We'll use positioning to size the content, so reset height to auto */
+	height: auto;
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+/* Shrink the content a little to make room for the scrollbars */
+/* Vertical scrollbar is on the left */
+.jssb-scrollx .jssb-content { bottom: 16px; }
+.jssb-scrolly .jssb-content { left: 16px; }
+
+/* Hide scrollbars by default */
+.jssb-x, .jssb-y { display: none; }
+
+/* Show scrollbars when needed */
+.jssb-scrollx .jssb-x,
+.jssb-scrolly .jssb-y { display: block; }
+
+/**
+ * HORIZONTAL SCROLLBAR
+ */
+
+/* Set horizontal scrollbar position and size in the container */
+.jssb-x {
+	position: absolute;
+
+	/* 0 pixels from the bottom and each side */
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	/* The thumbs are taller, but the track is only 4px */
+	height: 4px;
+}
+
+/* Set horizontal scrollbar position when vertical scrollbar is present */
+/* It needs to shorten up some to make room for the vertical scrollbar */
+.jssb-scrolly .jssb-x { left: 10px; }
+
+	/* Load in image sprite into all the scrollbar elements */
+	.jssb-x-thumb, .jssb-x-track, .jssb-x-track-mid, .jssb-x-track-end {
+		background: url(../images/min-scrollbar-x.png) no-repeat 0 0;
+		position: absolute;
+		
+		/* Expand to fill available height */
+		top: 0;
+		bottom: 0;
+	}
+	
+	/* Left track cap */
+	.jssb-x-track {
+		left: 0;
+		right: 0;
+	}
+	
+	/* Tiled mid-section */
+	.jssb-x-track .jssb-x-track-mid {
+		background-position: 0 -4px;
+		background-repeat: repeat-x;
+		
+		left: 14px;
+		right: 14px;
+	}
+	
+	/* Right track end cap */
+	.jssb-x-track-end {
+		background-position: right -8px;
+		
+		right: 0;
+		width: 14px;
+	}
+	
+	/* Thumb element position */
+	/* This is going to be a fixed width, so no need for other thumb sections */
+	.jssb-x-thumb {
+		background-position: 0 -24px;
+		
+		/* The track is only 4px, so this needs a height and to be repositioned */
+		height: 12px;
+		top: -4px;
+
+		/* Fixed thumb width */
+		width: 53px;
+	}
+	
+	/* Thumb click state */
+	.jssb-x-thumb-click {
+		background-position: 0 -36px;
+	}
+	
+/**
+ * VERTICAL SCROLLBAR
+ */
+
+/* Set vertical scrollbar position and size in the container */
+.jssb-y {
+	position: absolute;
+
+	/* 0 pixels from the left, top and bottom */
+	top: 0;
+	left: 0;
+	bottom: 0;
+
+	width: 4px;
+}
+
+/* Set vertical scrollbar position when horizontal scrollbar is present */
+/* It needs to shorten up some to make room for the horizontal scrollbar */
+.jssb-scrollx .jssb-y { bottom: 10px; }
+
+	/* Load in image sprite into all the scrollbar elements */
+	.jssb-y-thumb, .jssb-y-track, .jssb-y-track-mid, .jssb-y-track-end {
+		background: url(../images/min-scrollbar-y.png) no-repeat 0 0;
+		position: absolute;
+		
+		/* Expand to fill available width */
+		left: 0;
+		right: 0;
+	}
+	
+	/* Top track cap */
+	.jssb-y-track {
+		top: 0;
+		bottom: 0;
+	}
+	
+	/* Tiled mid-section */
+	.jssb-y-track .jssb-y-track-mid {
+		background-position: -4px 0;
+		background-repeat: repeat-y;
+		
+		top: 14px;
+		bottom: 14px;
+	}
+	
+	/* Bottom track end cap */
+	.jssb-y-track-end {
+		background-position: -8px bottom;
+		
+		bottom: 0;
+		height: 14px;
+	}
+	
+	/* Thumb element position */
+	/* This is going to be a fixed height, so no need for other thumb sections */
+	.jssb-y-thumb {
+		background-position: -24px 0;
+		
+		/* The track is only 4px, so this needs a width and to be repositioned */
+		width: 12px;
+		left: -4px;
+
+		/* Fixed thumb height */
+		height: 53px;
+	}
+	
+	/* Thumb click state */
+	.jssb-y-thumb-click {
+		background-position: -36px 0;
+	}
+
