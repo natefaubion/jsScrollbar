@@ -264,24 +264,8 @@ jsScrollbar('#container');
     <p>The javascript powering <strong>jsScrollbar</strong> is fairly simplistic and will
     work in any remotely modern browser (including IE6). It's the CSS you use that might
     cause compatibility issues.</p>
-
-    <p>The demos included make extensive use of dimensions-by-positioning wherein
-    declaring:</p>
-    <pre class="css">
-.jssb-y {
-    position: absolute;
-    top: 5px;
-    bottom: 5px;
-}
-</pre>
-
-    <p>would cause the vertical scrollbar to expand to the height of the container minus
-    5 pixels above and below it. This allows for scrollbars to easily expand to any size
-    without having explicitly set dimensions for each scrollbar. <strong>IE6</strong>
-    does not support this. You could enable complete cross-browser compatibility by using
-    hard coded dimensions, but you lose all flexibility.</p>
-
-    <p>To easily prevent <code class="js">jsScrollbar</code>s from initializing, you can
+	
+	<p>To easily prevent <code class="js">jsScrollbar</code>s from initializing, you can
     set the <code class="css">.jssb-content</code>'s <em>overflow</em> to
     <em>auto.</em></p>
     <pre class="css">
@@ -300,6 +284,22 @@ jsScrollbar('#container');
 
     <p>All of the included demos use this technique to serve IE6 the default system
     scrollbars.</p>
+
+    <p>The demos included make extensive use of dimensions-by-positioning wherein
+    declaring:</p>
+    <pre class="css">
+.jssb-y {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+}
+</pre>
+
+    <p>would cause the vertical scrollbar to expand to the height of the container minus
+    5 pixels above and below it. This allows for scrollbars to easily expand to any size
+    without having explicitly set dimensions for each scrollbar. <strong>IE6</strong>
+    does not support this. You could enable complete cross-browser compatibility by using
+    hard coded dimensions, but you lose all flexibility.</p>
 
     <p><strong>Opera</strong> also displays some minor quirks when using this technique
     on a liquid container. It fails to resize the scrollbar when the size of the
