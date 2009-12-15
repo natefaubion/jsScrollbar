@@ -1,117 +1,503 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <title>jsScrollbar</title>
-	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
+
 <body id="main">
+    <div id="bar">
+        <div id="titles">
+            <h1>jsScrollbar</h1>
+        </div>
 
-<div id="bar">
-	<div id="titles">
-		<h1>jsScrollbar/</h1>
-	</div>
-	<ul id="buttons">
-		<li><a href="#Initialization">Initialization</a></li>
-		<li><a href="#Styling">Styling</a></li>
-		<li><a href="#Preferences">Preferences</a></li>
-		<li><a href="#Compatibility">Compatibility</a></li>
-		<li><a href="#API">API</a></li>
-		<li><a href="#Examples">Examples</a></li>
-	</ul>
-</div>
+        <ul id="buttons">
+            <li><a href="#Initialization">Initialization</a></li>
 
-<div class="intro">
-<h2>What is jsScrollbar?</h2>
-<p><strong>jsScrollbar</strong> is a lightweight script <em>(4K minified and
-gzipped)</em> that enables you to override default system scrollbars on your
-website with beautiful, progressively-enhanced javascript scrollbars. It has no
-external dependencies, and can be included on any website, regardless of what
-other library you might be using. <code>jsScrollbars</code> are styled
-completely with CSS and can be customized to your heart's content.</p>
-</div>
+            <li><a href="#Styling">Styling</a></li>
 
+            <li><a href="#Preferences">Preferences</a></li>
 
+            <li><a href="#Compatibility">Compatibility</a></li>
 
+            <li><a href="#API">API</a></li>
 
+            <li><a href="#Demos">Demos</a></li>
+        </ul>
+    </div>
 
+    <div class="intro">
+        <h2>What is jsScrollbar?</h2>
 
-<h2 id="Initialization">Initialization</h2>
-<p>Initializing a new <code>jsScrollbar</code> is a breeze. Once your content
-has loaded, just pass your container(s) to a <code>jsScrollbar()</code> call in
-one of three ways: as a string of comma-separated IDs, an
-<code>HTMLElement</code>, or an array of <code>HTMLElement</code>s.</p>
+        <p><strong>jsScrollbar</strong> is a lightweight script <em>(4K minified and
+        gzipped)</em> that enables you to override default system scrollbars on your
+        website with beautiful, progressively-enhanced javascript scrollbars. It has no
+        external dependencies, and can be included on any website, regardless of what
+        other library you might be using. <strong>jsScrollbars</strong> are styled
+        completely with CSS and can be customized to your heart's content.</p>
+    </div>
 
-<pre>
+    <h2 id="Initialization">Initialization</h2>
+
+    <p>Initializing a new <code class="js">jsScrollbar</code> is a breeze. First you have
+    to set up some sort of container, which is usually just a <code class=
+    "html">div</code> with a set height, width, and maybe a border. Inside the container,
+    insert another <code class="html">div</code> with a class of <code class=
+    "css">.jssb-content</code>.</p>
+    <pre class="html">
+&lt;div id="container"&gt;
+    &lt;div class="jssb-content"&gt;
+        &lt;!-- SCROLLING CONTENT GOES HERE --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+    <p>Once your content has loaded, just pass your container(s) to a <code class=
+    "js">jsScrollbar()</code> call in one of three ways: as a string of comma-separated
+    IDs, an <code class="js">HTMLElement</code>, or an array of <code class=
+    "js">HTMLElement</code>s.</p>
+    <pre class="js">
 // Comma separated IDs, pound sign optional
-jsScrollbar('elementID1, #elementsID2')
+jsScrollbar('container, #container2')
 
 // Element reference
-var el = document.getElementById('elementID');
+var el = document.getElementById('container');
 jsScrollbar(el);
 
 // Array of elements through a jQuery call
 jsScrollbar( $('.container') );
 </pre>
 
-<p><code>jsScrollbar()</code> also takes a second optional argument for preferences,
-but we'll get to that in a later section.</p>
+    <p><code class="js">jsScrollbar()</code> also takes a second optional argument for
+    preferences, but we'll get to that in a later section.</p>
 
+    <p>You can also save a reference of the returned <code class="js">jsScrollbar</code>
+    and call its methods.</p>
+    <pre class="js">
+// Save a reference
+var sb = jsScrollbar('#container');
 
+// Call methods
+sb.scrollTo(0, 120);
+sb.recalc();
+</pre>
 
+    <h2 id="Styling">Styling</h2>
 
+    <p>There are a wide variety of CSS hooks available for styling your <code class=
+    "js">jsScrollbar</code>. For a detailed look at what exactly you need to do to setup
+    your CSS, take a look at the CSS files included. They are heavily commented and can
+    be used as a template for your own styles. A run down of useful hooks are detailed
+    below.</p>
 
-<h2 id="Styling">Styling</h2>
-<p>What good is a scrollbar if you can't see it?</p>
+    <dl>
+        <dt><code class="css">.jssb-applied</code></dt>
 
+        <dd>This is probably the most important hook. It is added to the container
+        element passed to <code class="js">jsScrollbar()</code> upon a successful
+        initialization.</dd>
 
+        <dt><code class="css">.jssb-scrollx</code></dt>
 
+        <dd>Added to the container element when content overflows on the x-axis.</dd>
 
+        <dt><code class="css">.jssb-scrolly</code></dt>
 
+        <dd>Added to the container element when content overflows on the y-axis.</dd>
 
-<h2 id="Preferences">Preferences</h2>
-<p>Lorem ipsum dolar sit amet.</p>
+        <dt><code class="css">.jssb-focus</code></dt>
 
+        <dd>Added to the container element when the users clicks on the container to
+        bring it focus, enabling keyboard navigation. It is removed when the user clicks
+        anywhere else on the document.</dd>
 
+        <dt><code class="css">.jssb-content</code></dt>
 
+        <dd>A child of the container element. All scrolling content resides here.</dd>
 
+        <dt><code class="css">.jssb-x</code>, <code class="css">.jssb-y</code></dt>
 
-<h2 id="Compatibility">Compatibility</h2>
-<p>Lorem ipsum dolar sit amet.</p>
+        <dd>The scrollbar elements. Children of the container element.</dd>
 
+        <dt><code class="css">.jssb-x-left</code>, <code class=
+        "css">.jssb-x-right</code>, <code class="css">.jssb-y-up</code>, <code class=
+        "css">.jssb-y-down</code></dt>
 
+        <dd>The scrolling directional buttons. Children of their respective scrollbar
+        element.</dd>
 
+        <dt><code class="css">.jssb-x-track</code>, <code class=
+        "css">.jssb-y-track</code></dt>
 
+        <dd>The scrollbar track elements. Children of their respective scrollbar
+        element.</dd>
 
-<h2 id="API">API</h2>
-<p>Lorem ipsum dolar sit amet.</p>
+        <dt><code class="css">.jssb-x-thumb</code>, <code class=
+        "css">.jssb-y-thumb</code></dt>
 
+        <dd>The draggable scrollbar thumb elements. Children of their respective
+        scrollbar track element.</dd>
 
+        <dt><code class="css">jssb-x-*-click</code>, <code class=
+        "css">jssb-y-*-click</code></dt>
 
+        <dd>Each of the scrollbar items has a class appended to it when the user clicks
+        on it. For example, when the user clicks on a <code class=
+        "css">.jssb-y-thumb</code> element, it will receive an additional <code class=
+        "css">.jssb-y-thumb-click</code> class.</dd>
+    </dl>
 
+    <p>In the default template, there are also a few nonessential classes for purely
+    visual purposes that include:</p>
 
-<h2 id="Examples">Examples</h2>
-<p>Lorem ipsum dolar sit amet.</p>
+    <dl>
+        <dt><code class="css">.jssb-x-track-mid</code>, <code class=
+        "css">.jssb-x-track-end</code>, <code class="css">.jssb-y-track-mid</code>,
+        <code class="css">.jssb-y-track-end</code></dt>
 
+        <dd>These are children of their respective track element. These are in place to
+        enable expanding background images.</dd>
 
+        <dt><code class="css">.jssb-x-thumb-mid</code>, <code class=
+        "css">.jssb-x-thumb-end</code>, <code class="css">.jssb-y-thumb-mid</code>,
+        <code class="css">.jssb-y-thumb-end</code></dt>
 
+        <dd>These are children of their respective thumb element. Again, these are in
+        place to enable expanding background images.</dd>
+    </dl>
 
+    <h2 id="Preferences">Preferences</h2>
 
+    <p>Preferences are passed to a new <code class="js">jsScrollbar</code> as key-value
+    pairs. You can also override the default settings so you don't have to change the
+    preferences for each instance.</p>
+    <pre class="js">
+// Preferences are passed as the second argument
+jsScrollbar('#container', {
+    horizontalScrolling: false,
+    scrollSpeed: 20
+});
 
-<script>
+// Or you can override the defaults
+jsScrollbar.defaults.horizontalScrolling = false;
+jsScrollbar.defaults.scrollSpeed = 20;
+jsScrollbar('#container');
+</pre>
 
-var anchors = document.getElementsByTagName('a'), i = anchors.length, a, id;
-while (i--) {
-	a  = anchors[i];
-	id = a.href.split('#')[1] || null;
-	if (id) {
-		a.onclick = function () {
-			var y = document.getElementById(this.href.split('#')[1]).offsetTop - 82;
-			window.scroll(0, y);
-			return false;
-		}
-	}
+    <p>A rundown of available preferences is listed below.</p>
+
+    <dl>
+        <dt><code class="js">scrollSpeed</code> <em>(Integer)</em></dt>
+
+        <dd>The time in milliseconds between each scroll frame. This applies to
+        animations and when the user presses the directional buttons. The default is
+        <strong>25</strong>.</dd>
+
+        <dt><code class="js">scrollDistance</code> <em>(Integer)</em></dt>
+
+        <dd>The number of pixels between each scroll frame when using the directional
+        buttons. The default is <strong>10</strong>.</dd>
+
+        <dt><code class="js">wheelDistance</code> <em>(Integer)</em></dt>
+
+        <dd>The number of pixels the content scrolls when using the mouse wheel. The
+        default is <strong>40</strong>.</dd>
+
+        <dt><code class="js">tweenSteps</code> <em>(Integer[])</em></dt>
+
+        <dd>An array of percentage values that the tweening function uses to animate the
+        scrollbar. The default is an ease-out animation with values
+        <strong>[25,50,70,85,95,97,99,100]</strong>.</dd>
+
+        <dt><code class="js">disableTweening</code> <em>(Boolean)</em></dt>
+
+        <dd>Disables animations when clicking on the track. It will instead cause content
+        to scroll by pages like system scrollbars. The default is
+        <strong>false</strong>.</dd>
+
+        <dt><code class="js">horizontalScrolling</code> <em>(Boolean)</em></dt>
+
+        <dd>Enables horizontal scrolling and scrollbar. The default is
+        <strong>true</strong>.</dd>
+
+        <dt><code class="js">verticalScrolling</code> <em>(Boolean)</em></dt>
+
+        <dd>Enables vertical scrolling and scrollbar. The default is
+        <strong>true</strong>.</dd>
+
+        <dt><code class="js">fixedThumb</code> <em>(Boolean)</em></dt>
+
+        <dd>Enable this if you don't want the thumb to be resized relative to the amount
+        of overflow content. The default is <strong>false</strong>.</dd>
+
+        <dt><code class="js">template</code> <em>(String)</em></dt>
+
+        <dd>
+            <p>HTML to use when generating the scrollbar. The default is shown below.</p>
+            <pre class="html">
+&lt;div class="jssb"&gt;
+    &lt;div class="jssb-up"&gt;&lt;/div&gt;
+    &lt;div class="jssb-track"&gt;
+        &lt;div class="jssb-track-mid"&gt;&lt;/div&gt;
+        &lt;div class="jssb-track-end"&gt;&lt;/div&gt;
+        &lt;div class="jssb-thumb"&gt;
+            &lt;div class="jssb-thumb-mid"&gt;&lt;/div&gt;
+            &lt;div class="jssb-thumb-end"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="jssb-down"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+            <p>The template tries to be directionally unbiased (except for 'up' and
+            'down') so the axis is left out of the class name. Alternatively, you can
+            also change this on a case by case basis by including it in the HTML of the
+            container, but the elements must have their full class name with the axis.
+            Decorative elements must keep the prefix of the element they decorate so the
+            event handler know what they belong to.</p>
+        </dd>
+    </dl>
+
+    <h2 id="Compatibility">Compatibility</h2>
+
+    <p>The javascript powering <strong>jsScrollbar</strong> is fairly simplistic and will
+    work in any remotely modern browser (including IE6). It's the CSS you use that might
+    cause compatibility issues.</p>
+
+    <p>The demos included make extensive use of dimensions-by-positioning wherein
+    declaring:</p>
+    <pre class="css">
+.jssb-y {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+}
+</pre>
+
+    <p>would cause the vertical scrollbar to expand to the height of the container minus
+    5 pixels above and below it. This allows for scrollbars to easily expand to any size
+    without having explicitly set dimensions for each scrollbar. <strong>IE6</strong>
+    does not support this. You could enable complete cross-browser compatibility by using
+    hard coded dimensions, but you lose all flexibility.</p>
+
+    <p>To easily prevent <code class="js">jsScrollbar</code>s from initializing, you can
+    set the <code class="css">.jssb-content</code>'s <em>overflow</em> to
+    <em>auto.</em></p>
+    <pre class="css">
+/* Use default system scrollbars */
+.jssb-content { 
+    overflow: auto; 
+    ...
 }
 
-</script>
+/* Enable jsScrollbars in capable browsers */
+.jssb-applied &gt; .jssb-content { 
+    overflow: hidden;
+    ...
+}
+</pre>
+
+    <p>All of the included demos use this technique to serve IE6 the default system
+    scrollbars.</p>
+
+    <p><strong>Opera</strong> also displays some minor quirks when using this technique
+    on a liquid container. It fails to resize the scrollbar when the size of the
+    container changes. This, however, can be easily fixed by calling a javascript
+    function that forces Opera to redraw the container and its children.</p>
+    <pre class="js">
+function forceOperaRedraw (sb) {
+    if (!window.opera) return;
+    if (!sb.length) sb = [sb];
+    var i = sb.length, o, r;
+    while (i--) {
+        o = sb[i].parent;
+        if (o.offsetWidth &gt; 0 &amp;&amp; o.offsetHeight &gt; 0) {
+            o.style.display = 'none';
+            r = o.offsetHeight;
+            o.style.display = '';
+        }
+    }
+}
+</pre>
+    <pre class="js">
+// Store instance of jsScrollbar
+var sb = jsScrollbar('#container');
+
+//Force a redraw
+forceOperaRedraw(sb);
+</pre>
+
+    <p>This particular function accepts a single <code class="js">jsScrollbar</code>
+    instance or an array. It will do nothing in other browsers. See the included demos
+    for examples of its usage.</p>
+
+    <p><strong>IE7</strong> has issues with liquid containers in general. For some
+    reason, accessing an element's offset dimensions inside the container occasionally
+    causes IE to break rendering on the container. Sometimes this can be mitigated by
+    wrapping the <code class="js">recalc()</code> call in a <code class=
+    "js">setTimeout()</code> with 0 delay, but not always.</p>
+    <pre class="js">
+function recalcScrollbar () {
+    setTimeout( function () { scrollbar.recalc(); }, 0 );
+}
+</pre>
+
+    <p>Of course, you can always just disable it entirely in IE7 like we do in IE6.</p>
+    <pre class="css">
+&lt;!--[if lt IE 8]&gt;
+&lt;style type="text/css"&gt;
+    /* Disable jsScrollbar in IE7 */
+    .jssb-applied &gt; .jssb-content { overflow: auto; }
+&lt;/style&gt;
+&lt;![endif]--&gt;
+</pre>
+
+    <h2 id="API">API</h2>
+
+    <h3>jsScrollbar</h3>
+
+    <dl>
+        <dt><code class="js">jsScrollbar(container, [preferences])</code></dt>
+
+        <dd>View the <a href="#Initialization">initialization</a> section above for
+        instruction on its usage. This returns a single <code class=
+        "js">jsScrollbar</code> instance or an array if called on multiple elements.</dd>
+
+        <dt><code class="js">jsScrollbar.scrollbars</code></dt>
+
+        <dd>A collection of all instanciated <code class="js">jsScrollbars</code>.</dd>
+    </dl>
+
+    <h3>Instances</h3>
+
+    <dl>
+        <dt><code class="js">parent</code></dt>
+
+        <dd>A reference to the container element passed to <code class=
+        "js">jsScrollbar()</code>. If you modify this element beyond simple styles, you
+        will likely need to call <code class="js">recalc()</code> to avoid buggy
+        behavior.</dd>
+
+        <dt><code class="js">content</code></dt>
+
+        <dd>A reference to the <code class="css">.jssb-content</code> element. As with
+        <code class="js">parent</code>, if you modify this element beyond simple styles,
+        you will likely need to call <code class="js">recalc()</code> afterwards.</dd>
+
+        <dt><code class="js">scrollTo(coordA, [coordB])</code></dt>
+
+        <dd>The parameters correspond to an XY coordinate pair, but the second value can
+        be omitted if an axis is disabled by setting <code class=
+        "js">horizontalScrolling</code> or <code class="js">verticalScrolling</code> to
+        <em>false</em>. You can pass a <code class="js">null</code> value to ignore an
+        axis.</dd>
+
+        <dt><code class="js">scrollBy(distA, [distB])</code></dt>
+
+        <dd>This works similarly to <code class="js">scrollTo</code>, but with relative
+        distances instead of coordinates.</dd>
+
+        <dt><code class="js">tweenTo(coordA, [coordB])</code></dt>
+
+        <dd>Same as<code class="js">scrollTo</code>, but with an animation.</dd>
+
+        <dt><code class="js">tweenBy(distA, [distB])</code></dt>
+
+        <dd>Same as<code class="js">scrollBy</code>, but with an animation.</dd>
+
+        <dt><code class="js">disable()</code></dt>
+
+        <dd>This removes all CSS hooks and javascript events, restoring the system
+        scrollbars, but does not remove the scrollbar elements from the parent.</dd>
+
+        <dt><code class="js">enable()</code></dt>
+
+        <dd>This reapplies the CSS hooks and events, restoring the <code class=
+        "js">jsScrollbar</code>.</dd>
+
+        <dt><code class="js">prefs(preference)</code></dt>
+
+        <dd>This returns the specified preference value. <code class=
+        "js">preference</code> is a <em>string</em>.</dd>
+
+        <dt><code class="js">prefs(preference, value)</code></dt>
+
+        <dd>This sets the specified preference value.</dd>
+
+        <dt><code class="js">prefs(preference_values)</code></dt>
+
+        <dd>This sets the specified preference values, defined as key-value pairs like
+        when initializing the <code class="js">jsScrollbar</code>.</dd>
+
+        <dt><code class="js">recalc()</code></dt>
+
+        <dd>This basically reinitializes the <code class="js">jsScrollbar</code>. If
+        something goes wrong or is acting strange, calling this will probably fix it. For
+        example, if you modify the container element's <code class="js">innerHTML</code>,
+        the script would lose references to the scrollbar components. Calling
+        <code class="js">recalc()</code> would find the lost elements again. Also, if you
+        modify the content of the <code class="css">.jssb-content</code> or resize the
+        container, <code class="js">recalc()</code> would recalculate the thumb
+        size.</dd>
+    </dl>
+
+    <h2 id="Demos">Demos</h2>
+
+    <dl>
+        <dt><a href="demos/tweensteps.html">Custom Tween Steps</a></dt>
+
+        <dd>A demo showing custom scrollbar animations. Notice how the scrollbar elements
+        are floated. <strong>jsScrollbar</strong> requires the container elements to have
+        some sort of positioning. If none is specified, it will automatically add
+        relative positioning to it.</dd>
+
+        <dt><a href="demos/simpletabs.html">Simple Tabs</a></dt>
+
+        <dd>This demo shows a simple implementation of tabbed <code class=
+        "js">jsScrollbars</code>s. It maintains history states, and is viewable without
+        javascript.</dd>
+
+        <dt><a href="demos/fixedthumbs.html">Fixed Thumbs</a></dt>
+
+        <dd>This demo shows scrollbars with fixed thumbs. It also shows how you can add
+        other decorative elements to the container. Using the CSS hooks provided, it
+        fades the content out on the sides when a <code class="js">jsScrollbar</code> is
+        applied to it.</dd>
+
+        <dt><a href="demos/flexiblecontainers.html">Flexible Containers</a></dt>
+
+        <dd>A demo showing what to do when you want scrollbars that change with the size
+        of the window.</dd>
+
+        <dt><a href="demos/fullscreen.html">Fullscreen Container</a></dt>
+
+        <dd>An extreme version of a liquid container. This fills all available space,
+        replacing the normal document scrollbars. This is not recommended, but
+        nevertheless, it's still possible.</dd>
+    </dl>
+
+    <div class="footer">
+        <p><strong>jsScrollbar</strong> is &copy; 2009-2010 Nathan Faubion and is made
+        available under the <a href=
+        "http://www.opensource.org/licenses/mit-license.php">MIT License</a>.</p>
+    </div>
+	
+    <script type="text/javascript">
+
+	var anchors = document.getElementsByTagName('a'), i = anchors.length, a, id;
+	while (i--) {
+		a  = anchors[i];
+		id = a.href.split('#')[1] || null;
+		if (id) {
+			a.onclick = function () {
+				var y = document.getElementById(this.href.split('#')[1]).offsetTop - 82;
+				window.scroll(0, y);
+				return false;
+			}
+		}
+	}
+
+    </script>
 </body>
 </html>

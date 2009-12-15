@@ -1,6 +1,6 @@
 /**
  * jsScrollbar v0.9
- * Copyright (c) 2009 Nathan Faubion
+ * Copyright (c) 2009-2010 Nathan Faubion
  *
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php

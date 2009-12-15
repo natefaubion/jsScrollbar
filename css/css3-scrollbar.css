@@ -1,7 +1,6 @@
 /**
- * Many of these selectors could be combined to save space, but they are all
- * expanded here for clarity. Always use a CSS compressor, because the CSS for
- * complex scrollbars can be quite verbose.
+ * Always use a CSS compressor, because the CSS for complex scrollbars can be
+ * quite verbose.
  * 
  * HTML structure utilized in this scrollbar:
  * <div class="jssb-y">
