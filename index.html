@@ -190,9 +190,8 @@ jsScrollbar('#container');
     <dl>
         <dt><code class="js">scrollSpeed</code> <em>(Integer)</em></dt>
 
-        <dd>The time in milliseconds between each scroll frame. This applies to
-        animations and when the user presses the directional buttons. The default is
-        <strong>25</strong>.</dd>
+        <dd>The time in milliseconds between each scroll frame. This applies to when
+		the user presses the directional buttons. The default is<strong>25</strong>.</dd>
 
         <dt><code class="js">scrollDistance</code> <em>(Integer)</em></dt>
 
@@ -204,11 +203,28 @@ jsScrollbar('#container');
         <dd>The number of pixels the content scrolls when using the mouse wheel. The
         default is <strong>40</strong>.</dd>
 
-        <dt><code class="js">tweenSteps</code> <em>(Integer[])</em></dt>
+        <dt><code class="js">tweenDuration</code> <em>(Integer)</em></dt>
 
-        <dd>An array of percentage values that the tweening function uses to animate the
-        scrollbar. The default is an ease-out animation with values
-        <strong>[25,50,70,85,95,97,99,100]</strong>.</dd>
+        <dd>The number of milliseconds the tweening animation lasts. The default is
+        <strong>300</strong>.</dd>
+		
+		<dt><code class="js">tweenFn</code> <em>(Function)</em></dt>
+
+		<dd><p>An easing function. This function is passed a value between 0 and
+		1, representing the current position within the animation (0 = start,
+		0.5 = halfway, 1 = end). Modifying this value results in different kinds
+		of easing. Most easing equations out there are based off of Robert
+		Penner's work and are freely available, but you can also create your own
+		with a little trial and error and a graphing calculator. Once you plot
+		your function, anything between (0,0) and (1,1) is what will serve as
+		your animation. Setting this to <code class="js">null</code> will result
+		in a linear animation. The default easing function is:</p>
+		    <pre class="js">
+function (pos) {
+    return -Math.pow((pos-1), 4) + 1;
+}
+</pre>
+		</dd>
 
         <dt><code class="js">disableTweening</code> <em>(Boolean)</em></dt>
 
@@ -445,7 +461,7 @@ function recalcScrollbar () {
     <h2 id="Demos">Demos</h2>
 
     <dl>
-        <dt><a href="demos/tweensteps.html">Custom Tween Steps</a></dt>
+        <dt><a href="demos/tweensteps.html">Custom Tweening</a></dt>
 
         <dd>A demo showing custom scrollbar animations. Notice how the scrollbar elements
         are floated. <strong>jsScrollbar</strong> requires the container elements to have

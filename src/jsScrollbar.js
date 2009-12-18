@@ -65,10 +65,11 @@ jsScrollbar.scrollbars = [];
  * instanciated jsScrollbars.
  */
 jsScrollbar.defaults = {
-	scrollSpeed: 25,
+	scrollSpeed: 30,
 	scrollDistance: 10,
 	wheelDistance: 40,
-	tweenSteps: [25,50,70,85,95,97,99,100],
+	tweenFn: function (pos) { return -Math.pow((pos-1), 4) + 1; },
+	tweenDuration: 300,
 	disableTweening: false,
 	horizontalScrolling: true,
 	verticalScrolling: true,
@@ -314,10 +315,9 @@ jsScrollbar.init.prototype = {
 				newPos = (e['page'+ axis.toUpperCase()] - trackPos - cmp.thumb.relevantDim() / 2) * cmp.ratio;
 				
 				if (axis == 'x')
-					this.tweenTo(newPos, co.scrollTop);
-				else {
-					this.tweenTo(co.scrollLeft, newPos);
-				}
+					this.tweenTo(newPos, null);
+				else 
+					this.tweenTo(null, newPos);
 			}
 		}
 	
@@ -653,14 +653,12 @@ jsScrollbar.init.prototype = {
  * This is the same as scrollTo, but with an animation.
  */
 	tweenTo: function (a, b) {
-		if (this._isAnimating) return;
-		
-		var x, y, distX, distY,
-			inc     = 0,
-			valuesX = [],
-			valuesY = [],
-			co    = this.content,
-			prefs = this._prefs;
+		if (this._isAnimating)
+			return;
+			
+		var co = this.content, prefs = this._prefs, temp = this._temp,
+		    startX = co.scrollLeft, startY = co.scrollTop,
+			x, y, distX, distY, start = +new Date;
 		
 		if (typeof b == 'undefined') {
 			if (prefs.horizontalScrolling === false) {
@@ -674,44 +672,52 @@ jsScrollbar.init.prototype = {
 			x = a;
 			y = b;
 		}
-
+		
 		if (x !== null && x != co.scrollLeft) {
 			if (x < 0) x = 0;
 			if (x > co.scrollWidth - co.clientWidth)
 				x = co.scrollWidth - co.clientWidth;
-				
-			distX = x - co.scrollLeft;
-			for (inc = 0; inc < prefs.tweenSteps.length; inc++) {
-				valuesX[inc] = co.scrollLeft + distX * (prefs.tweenSteps[inc] / 100);
-			}
+			distX = x - startX;
 		}
 		
 		if (y !== null && y != co.scrollTop) {
 			if (y < 0) y = 0;
 			if (y > co.scrollHeight - co.clientHeight)
 				y = co.scrollHeight - co.clientHeight;
-				
-			distY = y - co.scrollTop;
-			for (inc = 0; inc < prefs.tweenSteps.length; inc++) {
-				valuesY[inc] = co.scrollTop + distY * (prefs.tweenSteps[inc] / 100);
-			}
+			distY = y - startY;
 		}
 		
 		this._isAnimating = true;
-		inc = 0;
 		
-		this._temp.tweenTimer = window.setInterval(
-			bind(function () {
-				this.scrollTo(valuesX[inc], valuesY[inc]);
-				if (inc == this._prefs.tweenSteps.length - 1) {
-					window.clearInterval(this._temp.tweenTimer);
-					this._isAnimating = false;
-				} else {
-					inc++;
-				}
-			}, this), 
-			prefs.scrollSpeed
+		temp.tweenData = {
+			start: start,
+			fin: start + prefs.tweenDuration,
+			sx: startX, sy: startY,
+			dx: distX, dy: distY,
+			x: x, y: y
+		};
+		
+		temp.tweenTimer = setInterval(bind(this._tweenToFn, this), 10);
+	},
+	
+	_tweenToFn: function () {
+		var tw = this._temp.tweenData, prefs = this._prefs;
+		
+		var time = +new Date,
+		    pos  = time > tw.fin ? 1 : (time - tw.start) / prefs.tweenDuration;
+			
+		if (prefs.tweenFn)
+			pos = prefs.tweenFn(pos);
+		
+		this.scrollTo(
+			tw.x === null ? null : (tw.sx + tw.dx * pos),
+			tw.y === null ? null : (tw.sy + tw.dy * pos)
 		);
+		
+		if (time > tw.fin) {
+			clearInterval(this._temp.tweenTimer);
+			this._isAnimating = false;
+		}
 	},
 	
 /**

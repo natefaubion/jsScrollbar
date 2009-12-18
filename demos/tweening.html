@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>jsScrollbar/Tween Steps</title>
-<script type="text/javascript" src="../src/jsScrollbar.min.js"></script>
+<title>jsScrollbar/Tweening</title>
+<script type="text/javascript" src="../src/jsScrollbar.js"></script>
 <script type="text/javascript">
 
 	// Called at the end of the document
 	function apply () {
-		var steps = [
-			// Default ease-out
-			[25,50,70,85,95,97,99,100],
-			
-			// Ease-in and out
-			[1,3,6,10,15,21,28,36,45,55,64,72,79,85,90,94,97,99,100],
-			
-			// Linear
-			[10,20,30,40,50,60,70,80,90,100],
-			
-			// Ease-out and bounce back
-			[40,70,90,100,105,108,110,104,100,97,99,100,101,100]
-		];
 		
-		for (var i = 1; i <= 4; i++)
-			jsScrollbar('#Container'+ i, {tweenSteps: steps[i-1]});
+		// Default animation
+		jsScrollbar('#Container1', {
+			tweenDuration: 300,
+			tweenFn: function (pos) {
+				return -Math.pow((pos-1), 4) + 1;
+			}
+		});
+		
+		// Ease in and out
+		jsScrollbar('#Container2', {
+			tweenDuration: 500,
+			tweenFn: function (pos) {
+				return -Math.cos(pos*Math.PI) / 2 + 0.5;
+			}
+		});
+		
+		// Very dramatic easing
+		jsScrollbar('#Container3', {
+			tweenDuration: 400,
+			tweenFn: function (pos) {
+				return Math.atan(6*pos*Math.PI - 9.5)/2.94 + .5;
+			}
+		});
+		
+		
+		//Bounce at the end
+		jsScrollbar('#Container4', {
+			tweenDuration: 360,
+			tweenFn: function (pos) {
+				return Math.pow(pos, 4) + Math.sin(pos*Math.PI);
+			}
+		});
+		
 	}
 	
 </script>
@@ -67,6 +85,10 @@
 		border-color: #222;
 	}
 	
+	.jssb-content {
+		outline: none;
+	}
+	
 </style>
 </head>
 <body>
@@ -74,7 +96,7 @@
 <div id="bar">
 	<div id="titles">
 		<h1><a href="../index.html">jsScrollbar/</a></h1>
-		<h2>Tween Steps</h2>
+		<h2>Tweening</h2>
 	</div>
 	<ul id="buttons">
 		<li><a href="#" id="disable">Disable jsScrollbars</a></li>
