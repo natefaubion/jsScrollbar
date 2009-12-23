@@ -1,5 +1,5 @@
 /**
- * jsScrollbar v0.9
+ * jsScrollbar v0.9.1
  * Copyright (c) 2009-2010 Nathan Faubion
  *
  * Licensed under the MIT license:
