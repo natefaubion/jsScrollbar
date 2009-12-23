@@ -59,6 +59,9 @@
 	bottom: 2px;
 	
 	width: 12px;
+
+	/* This preloads the click state. Child elements will cover it up, so it won't be seen. */
+	background: url(../images/glossy-scrollbar-y-click.png) no-repeat center center;
 }
 
 	/* Set default positioning and sprite image for scrollbar components */
@@ -139,8 +142,7 @@
 	}
 	
 	/* Sprite for click state */
-	/* Much less code, but causes a flash when loading the new image */
-	/* Could be mitigated by preloading image somehow */
+	/* Much less code, but causes a flash if image isn't preloaded somehow */
 	.jssb-y-up-click, .jssb-y-down-click, 
 	.jssb-y-thumb-click, .jssb-y-thumb-click .jssb-y-thumb-mid, .jssb-y-thumb-click .jssb-y-thumb-end, 
 	.jssb-y-track-click, .jssb-y-track-click .jssb-y-track-mid, .jssb-y-track-click .jssb-y-track-end {
